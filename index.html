@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Break My Heart</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: #fff4f6;
+            font-family: Arial, sans-serif;
+            color: #a34c68;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 500;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #b98595;
+        }
+
+        .scene {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            margin: 35px auto 0;
+        }
+
+
+        .heart {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            top: 55px;
+            left: 95px;
+            animation: heartbeat 1.3s ease-in-out infinite;
+        }
+
+        .heart svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            filter: drop-shadow(0 7px 8px #ee8ca530);
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
+        }
+
+        .piece {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            top: 55px;
+            left: 95px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .piece svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .scene.broken .heart {
+            animation: disappear 0.12s forwards;
+        }
+
+        .scene.broken .piece {
+            opacity: 1;
+        }
+
+        .scene.broken .left-piece {
+            animation: leftFall 1s ease-in forwards;
+        }
+
+        .scene.broken .right-piece {
+            animation: rightFall 1s ease-in forwards;
+        }
+
+        @keyframes disappear {
+            to {
+                opacity: 0;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes leftFall {
+            0% {
+                transform: translate(0, 0) rotate(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-75px, 100px) rotate(-30deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes rightFall {
+            0% {
+                transform: translate(0, 0) rotate(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(75px, 100px) rotate(30deg);
+                opacity: 0;
+            }
+        }
+
+
+        .hammer {
+            position: absolute;
+            top: 0;
+            right: 5px;
+            z-index: 5;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            font-size: 55px;
+            cursor: pointer;
+            transform-origin: 75% 75%;
+            transition: transform 0.2s ease;
+        }
+
+        .hammer:hover {
+            transform: rotate(-20deg) scale(1.08);
+        }
+
+        .scene.broken .hammer {
+            animation: hammerHit 0.35s ease-in-out;
+        }
+
+        @keyframes hammerHit {
+            0% {
+                transform: rotate(0);
+            }
+
+            55% {
+                transform: rotate(-65deg) translate(-12px, 15px);
+            }
+
+            100% {
+                transform: rotate(0);
+            }
+        }
+
+
+        .message {
+            min-height: 24px;
+            margin-top: 5px;
+            font-size: 15px;
+            color: #b16b82;
+        }
+
+        .reset {
+            margin-top: 25px;
+            padding: 12px 22px;
+            border: 1px solid #f0c0cd;
+            border-radius: 30px;
+            background: #ffe3ea;
+            color: #98475f;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        .reset:hover {
+            background: #fbd0dc;
+            transform: translateY(-2px);
+        }
+
+        .note {
+            margin-top: 40px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: #c69aa7;
+        }
+
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 34px;
+            }
+
+            .scene {
+                transform: scale(0.9);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+
+        <h1>Break My Heart</h1>
+        <p class="subtitle">go on, I dare you.</p>
+
+        <div class="scene" id="scene">
+
+        
+            <div class="heart">
+                <svg viewBox="0 0 100 100" aria-hidden="true">
+                    <path
+                        d="M50 88 C40 77 5 52 5 29 C5 3 37 0 50 22 C63 0 95 3 95 29 C95 52 60 77 50 88Z"
+                        fill="#ee8ca5"
+                    />
+                </svg>
+            </div>
+
+            
+            <div class="piece left-piece">
+                <svg viewBox="0 0 100 100" aria-hidden="true">
+                    <defs>
+                        <clipPath id="leftClip">
+                            <path d="M50 88 C40 77 5 52 5 29 C5 3 37 0 50 22Z"/>
+                        </clipPath>
+                    </defs>
+
+                    <path
+                        d="M50 88 C40 77 5 52 5 29 C5 3 37 0 50 22 C63 0 95 3 95 29 C95 52 60 77 50 88Z"
+                        fill="#ee8ca5"
+                        clip-path="url(#leftClip)"
+                    />
+                </svg>
+            </div>
+
+            
+            <div class="piece right-piece">
+                <svg viewBox="0 0 100 100" aria-hidden="true">
+                    <defs>
+                        <clipPath id="rightClip">
+                            <path d="M50 88 C60 77 95 52 95 29 C95 3 63 0 50 22Z"/>
+                        </clipPath>
+                    </defs>
+
+                    <path
+                        d="M50 88 C40 77 5 52 5 29 C5 3 37 0 50 22 C63 0 95 3 95 29 C95 52 60 77 50 88Z"
+                        fill="#ee8ca5"
+                        clip-path="url(#rightClip)"
+                    />
+                </svg>
+            </div>
+
+            <button class="hammer" id="hammer" aria-label="Break the heart">
+                🔨
+            </button>
+
+        </div>
+
+        <p class="message" id="message" aria-live="polite">
+            it's just a heart. what could go wrong?
+        </p>
+
+        <button class="reset" id="reset">
+            Put it back together
+        </button>
+
+        <p class="note">made this instead of sleeping</p>
+
+    </main>
+
+    <script>
+        const scene = document.querySelector("#scene");
+        const hammer = document.querySelector("#hammer");
+        const message = document.querySelector("#message");
+        const reset = document.querySelector("#reset");
+
+        let isBroken = false;
+
+        hammer.addEventListener("click", function () {
+            if (isBroken) {
+                return;
+            }
+
+            isBroken = true;
+            scene.classList.add("broken");
+
+            message.textContent = "Rude, honestly.";
+        });
+
+        reset.addEventListener("click", function () {
+            scene.classList.remove("broken");
+
+            isBroken = false;
+            message.textContent = "it's just a heart. what could go wrong?";
+        });
+    </script>
+
+</body>
+</html>
